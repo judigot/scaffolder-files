@@ -1,0 +1,76 @@
+package com.example.api.service;
+
+import com.example.api.dto.{{tableNamePascalCaseSingular}}Dto;
+import com.example.api.entity.{{tableNamePascalCaseSingular}};
+import com.example.api.exception.ResourceNotFoundException;
+import com.example.api.repository.{{tableNamePascalCaseSingular}}Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class {{tableNamePascalCaseSingular}}Service {
+
+    private final {{tableNamePascalCaseSingular}}Repository {{tableNameCamelCaseSingular}}Repository;
+
+    @Autowired
+    public {{tableNamePascalCaseSingular}}Service({{tableNamePascalCaseSingular}}Repository {{tableNameCamelCaseSingular}}Repository) {
+        this.{{tableNameCamelCaseSingular}}Repository = {{tableNameCamelCaseSingular}}Repository;
+    }
+
+    public List<{{tableNamePascalCaseSingular}}Dto> findAll() {
+        return {{tableNameCamelCaseSingular}}Repository.findAll().stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public {{tableNamePascalCaseSingular}}Dto findById(Long id) {
+        {{tableNamePascalCaseSingular}} {{tableNameCamelCaseSingular}} = get{{tableNamePascalCaseSingular}}ById(id);
+        return convertToDto({{tableNameCamelCaseSingular}});
+    }
+
+    public {{tableNamePascalCaseSingular}}Dto save({{tableNamePascalCaseSingular}}Dto {{tableNameCamelCaseSingular}}Dto) {
+        {{tableNamePascalCaseSingular}} {{tableNameCamelCaseSingular}} = convertToEntity({{tableNameCamelCaseSingular}}Dto);
+        {{tableNamePascalCaseSingular}} saved{{tableNamePascalCaseSingular}} = {{tableNameCamelCaseSingular}}Repository.save({{tableNameCamelCaseSingular}});
+        return convertToDto(saved{{tableNamePascalCaseSingular}});
+    }
+
+    public {{tableNamePascalCaseSingular}}Dto update(Long id, {{tableNamePascalCaseSingular}}Dto {{tableNameCamelCaseSingular}}Dto) {
+        {{tableNamePascalCaseSingular}} existing{{tableNamePascalCaseSingular}} = get{{tableNamePascalCaseSingular}}ById(id);
+        
+        existing{{tableNamePascalCaseSingular}}.setName({{tableNameCamelCaseSingular}}Dto.getName());
+        existing{{tableNamePascalCaseSingular}}.setDescription({{tableNameCamelCaseSingular}}Dto.getDescription());
+        
+        {{tableNamePascalCaseSingular}} updated{{tableNamePascalCaseSingular}} = {{tableNameCamelCaseSingular}}Repository.save(existing{{tableNamePascalCaseSingular}});
+        return convertToDto(updated{{tableNamePascalCaseSingular}});
+    }
+
+    public void delete(Long id) {
+        {{tableNamePascalCaseSingular}} {{tableNameCamelCaseSingular}} = get{{tableNamePascalCaseSingular}}ById(id);
+        {{tableNameCamelCaseSingular}}Repository.delete({{tableNameCamelCaseSingular}});
+    }
+
+    private {{tableNamePascalCaseSingular}} get{{tableNamePascalCaseSingular}}ById(Long id) {
+        return {{tableNameCamelCaseSingular}}Repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("{{tableNamePascalCaseSingular}} not found with id: " + id));
+    }
+
+    private {{tableNamePascalCaseSingular}}Dto convertToDto({{tableNamePascalCaseSingular}} {{tableNameCamelCaseSingular}}) {
+        return {{tableNamePascalCaseSingular}}Dto.builder()
+                .id({{tableNameCamelCaseSingular}}.getId())
+                .name({{tableNameCamelCaseSingular}}.getName())
+                .description({{tableNameCamelCaseSingular}}.getDescription())
+                .createdAt({{tableNameCamelCaseSingular}}.getCreatedAt())
+                .updatedAt({{tableNameCamelCaseSingular}}.getUpdatedAt())
+                .build();
+    }
+
+    private {{tableNamePascalCaseSingular}} convertToEntity({{tableNamePascalCaseSingular}}Dto {{tableNameCamelCaseSingular}}Dto) {
+        return {{tableNamePascalCaseSingular}}.builder()
+                .name({{tableNameCamelCaseSingular}}Dto.getName())
+                .description({{tableNameCamelCaseSingular}}Dto.getDescription())
+                .build();
+    }
+} 

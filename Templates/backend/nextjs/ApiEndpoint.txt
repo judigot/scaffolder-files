@@ -1,0 +1,52 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+type ResponseData = {
+  data?: I{{tableNamePascalCaseSingular}}[];
+  message?: string;
+  error?: string;
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) {
+  try {
+    const { method } = req;
+
+    switch (method) {
+      case 'GET':
+        // Get all {{tableNamePascalCasePlural}}
+        return res.status(200).json({ 
+          data: [],
+          message: '{{tableNamePascalCasePlural}} retrieved successfully' 
+        });
+
+      case 'POST':
+        // Create new {{tableNamePascalCaseSingular}}
+        return res.status(201).json({ 
+          message: '{{tableNamePascalCaseSingular}} created successfully' 
+        });
+
+      case 'PUT':
+        // Update {{tableNamePascalCaseSingular}}
+        return res.status(200).json({ 
+          message: '{{tableNamePascalCaseSingular}} updated successfully' 
+        });
+
+      case 'DELETE':
+        // Delete {{tableNamePascalCaseSingular}}
+        return res.status(200).json({ 
+          message: '{{tableNamePascalCaseSingular}} deleted successfully' 
+        });
+
+      default:
+        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
+        return res.status(405).json({ error: `Method ${String(method)} Not Allowed` });
+    }
+  } catch (error) {
+    return res.status(500).json({ 
+      error: 'Internal Server Error',
+    });
+  }
+} 
