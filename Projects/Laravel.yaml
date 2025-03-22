@@ -20,7 +20,7 @@ app:
 routes:
   - CREATE_FILE(api.php --template /Templates/backend/laravel/api.txt)
   - CREATE_MULTIPLE_FILES({{tableNameKebabCasePlural}}.php --template /Templates/backend/laravel/Route.txt)
-frontendzzzzz:
+frontend:
   src:
     hooks:
       CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
