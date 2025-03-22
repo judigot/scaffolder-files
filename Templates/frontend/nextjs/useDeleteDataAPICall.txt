@@ -1,0 +1,35 @@
+import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
+import { delete{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/delete{{tableNamePascalCaseSingular}}';
+
+/**
+ * Hook for deleting a {{tableNamePascalCaseSingular}}
+ * @param options Optional mutation configuration
+ */
+export const useDelete{{tableNamePascalCaseSingular}} = (
+  options?: Omit<
+    UseMutationOptions<
+      void,
+      Error,
+      number | string
+    >,
+    'mutationFn'
+  >
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: delete{{tableNamePascalCaseSingular}},
+    
+    // Default onSuccess behavior
+    onSuccess: (_, id) => {
+      // Invalidate the list query to refetch without the deleted item
+      queryClient.invalidateQueries({ queryKey: ['{{tableNameCamelCasePlural}}'] });
+      
+      // Remove the individual item from cache
+      queryClient.removeQueries({ queryKey: ['{{tableNameCamelCaseSingular}}', String(id)] });
+    },
+    
+    // User override options
+    ...options,
+  });
+}; 

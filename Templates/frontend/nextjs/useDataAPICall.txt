@@ -1,0 +1,27 @@
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { get{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/get{{tableNamePascalCaseSingular}}';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+/**
+ * Hook for fetching a single {{tableNamePascalCaseSingular}} by ID
+ * @param id The ID of the {{tableNamePascalCaseSingular}} to fetch
+ * @param options Optional query configuration
+ */
+export const use{{tableNamePascalCaseSingular}} = (
+  id: number | string,
+  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}, Error>, 'queryKey' | 'queryFn'>
+) => {
+  return useQuery({
+    queryKey: ['{{tableNameCamelCaseSingular}}', String(id)],
+    queryFn: () => get{{tableNamePascalCaseSingular}}(id),
+    
+    // Default settings
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: true,
+    retry: 1,
+    
+    // User override options
+    ...options,
+  });
+}; 

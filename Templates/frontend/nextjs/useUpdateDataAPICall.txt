@@ -1,0 +1,39 @@
+import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
+import { update{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/update{{tableNamePascalCaseSingular}}';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+/**
+ * Hook for updating an existing {{tableNamePascalCaseSingular}}
+ * @param id The ID of the {{tableNamePascalCaseSingular}} to update
+ * @param options Optional mutation configuration
+ */
+export const useUpdate{{tableNamePascalCaseSingular}} = (
+  id: number | string,
+  options?: Omit<
+    UseMutationOptions<
+      I{{tableNamePascalCaseSingular}},
+      Error,
+      Partial<I{{tableNamePascalCaseSingular}}>
+    >,
+    'mutationFn'
+  >
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Partial<I{{tableNamePascalCaseSingular}}>) => update{{tableNamePascalCaseSingular}}(id, data),
+    
+    // Default onSuccess behavior
+    onSuccess: (data) => {
+      // Invalidate queries
+      queryClient.invalidateQueries({ queryKey: ['{{tableNameCamelCasePlural}}'] });
+      queryClient.invalidateQueries({ queryKey: ['{{tableNameCamelCaseSingular}}', String(id)] });
+      
+      // Update the cache directly for immediate UI updates
+      queryClient.setQueryData(['{{tableNameCamelCaseSingular}}', String(id)], data);
+    },
+    
+    // User override options
+    ...options,
+  });
+}; 

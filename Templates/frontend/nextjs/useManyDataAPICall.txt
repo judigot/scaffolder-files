@@ -1,0 +1,26 @@
+import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { get{{tableNamePascalCasePlural}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/get{{tableNamePascalCasePlural}}';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+/**
+ * Hook for fetching all {{tableNamePascalCasePlural}}
+ * @param options Optional query configuration
+ */
+export const use{{tableNamePascalCasePlural}} = (
+  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}[], Error>, 'queryKey' | 'queryFn'>
+) => {
+  return useQuery({
+    queryKey: ['{{tableNameCamelCasePlural}}'],
+    queryFn: get{{tableNamePascalCasePlural}},
+    
+    // Default settings
+    refetchInterval: 60 * 1000, // 1 minute
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: true,
+    retry: 1,
+    
+    // User override options
+    ...options,
+  });
+}; 

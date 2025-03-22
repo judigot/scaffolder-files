@@ -1,0 +1,38 @@
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+/**
+ * Updates an existing {{tableNamePascalCaseSingular}} by ID
+ * @param id The ID of the {{tableNamePascalCaseSingular}} to update
+ * @param data The partial data to update
+ * @returns Promise resolving to the updated {{tableNamePascalCaseSingular}} object
+ */
+export const update{{tableNamePascalCaseSingular}} = async (
+  id: number | string,
+  data: Partial<I{{tableNamePascalCaseSingular}}>
+): Promise<I{{tableNamePascalCaseSingular}}> => {
+  try {
+    const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${String(response.status)}`);
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error: unknown) {
+    if (typeof error === 'string') {
+      throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${error}`);
+    }
+    if (error instanceof Error) {
+      throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
+    }
+    throw new Error('An unknown error occurred');
+  }
+}; 
