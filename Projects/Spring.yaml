@@ -8,3 +8,4 @@ src:
         - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.tsx --template /Templates/frontend/React-Hook.txt)
       interfaces:
         - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
+        - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
