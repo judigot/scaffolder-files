@@ -1,4 +1,4 @@
-symfony:
+spring:
   app:
     - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
   hooks:
