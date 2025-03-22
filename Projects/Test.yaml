@@ -1,0 +1,28 @@
+src:
+  app:
+    - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
+  Controller:
+    - CREATE_FILE(BaseController.php --template /Templates/backend/symfony/Controller.txt)
+    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.php --template /Templates/backend/symfony/Controller.txt)
+  Entity:
+    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}.php --template /Templates/backend/symfony/Entity.txt)
+  Repository:
+    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Repository.php --template /Templates/backend/symfony/Repository.txt)
+  Form:
+    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Type.php --template /Templates/backend/symfony/Form.txt)
+  EventSubscriber:
+    - CREATE_FILE(ExceptionSubscriber.php --template /Templates/backend/symfony/ExceptionSubscriber.txt)
+config:
+  routes:
+    - CREATE_FILE(routes.yaml --template /Templates/backend/symfony/routes.yaml)
+templates:
+  base:
+    - CREATE_FILE(base.html.twig)
+  {{tableNameKebabCaseSingular}}:
+    - CREATE_FILE(index.html.twig)
+    - CREATE_FILE(show.html.twig)
+    - CREATE_FILE(new.html.twig)
+    - CREATE_FILE(edit.html.twig)
+public:
+  - CREATE_FOLDER(build)
+  - CREATE_FOLDER(images)
