@@ -1,38 +1,39 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
+import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
-import { use{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/use{{tableNamePascalCaseSingular}}';
+import { {{tableNameCamelCaseSingular}}Api } from '@/hooks/{{tableNameKebabCaseSingular}}/api';
+import { {{tableNameCamelCaseSingular}}Keys } from '@/hooks/{{tableNameKebabCaseSingular}}/use{{tableNamePascalCaseSingular}}';
+import {{tableNamePascalCaseSingular}}List from '@/components/{{tableNameKebabCaseSingular}}/{{tableNamePascalCaseSingular}}List';
 
 interface I{{tableNamePascalCaseSingular}}PageProps {
-  initialData?: I{{tableNamePascalCaseSingular}}[];
+  // The props are actually in the dehydrated state
 }
 
-export default function {{tableNamePascalCaseSingular}}Page({ initialData }: I{{tableNamePascalCaseSingular}}PageProps) {
-  const { 
-    data, 
-    isLoading, 
-    error,
-    create{{tableNamePascalCaseSingular}},
-    update{{tableNamePascalCaseSingular}},
-    delete{{tableNamePascalCaseSingular}} 
-  } = use{{tableNamePascalCaseSingular}}(initialData);
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {String(error.message)}</div>;
-
+export default function {{tableNamePascalCaseSingular}}Page(props: I{{tableNamePascalCaseSingular}}PageProps) {
   return (
-    <div>
-      <h1>{{tableNamePascalCaseSingular}} Management</h1>
-      {/* Render your data and form components here */}
+    <div className="container mx-auto py-8">
+      <h1 className="text-4xl font-bold mb-8">{{tableNamePascalCaseSingular}} Management</h1>
+      
+      {/* The list component will use the query hook to get data from cache */}
+      <{{tableNamePascalCaseSingular}}List />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // Fetch initial data
+  const queryClient = new QueryClient();
+  
+  // Prefetch data for the page
+  await queryClient.prefetchQuery({
+    queryKey: {{tableNameCamelCaseSingular}}Keys.lists(),
+    queryFn: () => {{tableNameCamelCaseSingular}}Api.getAll()
+  });
+  
   return {
     props: {
-      initialData: [],
+      // Dehydrate the query cache to serialize it for the client
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }; 

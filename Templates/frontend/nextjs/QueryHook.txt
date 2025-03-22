@@ -1,0 +1,124 @@
+import { 
+  useQuery, 
+  useMutation, 
+  useQueryClient,
+  QueryKey,
+  UseQueryOptions
+} from '@tanstack/react-query';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+import { {{tableNameCamelCaseSingular}}Api } from './api';
+
+// Define query keys for better cache management
+export const {{tableNameCamelCaseSingular}}Keys = {
+  all: ['{{tableNameCamelCasePlural}}'] as const,
+  lists: () => [...{{tableNameCamelCaseSingular}}Keys.all, 'list'] as const,
+  list: (filters: string) => [...{{tableNameCamelCaseSingular}}Keys.lists(), { filters }] as const,
+  details: () => [...{{tableNameCamelCaseSingular}}Keys.all, 'detail'] as const,
+  detail: (id: number | string) => [...{{tableNameCamelCaseSingular}}Keys.details(), id] as const,
+};
+
+/**
+ * Custom hook for fetching and managing {{tableNamePascalCaseSingular}} data
+ */
+export const use{{tableNamePascalCaseSingular}} = (
+  initialData?: I{{tableNamePascalCaseSingular}}[],
+  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}[], Error, I{{tableNamePascalCaseSingular}}[], QueryKey>, 'queryKey' | 'queryFn'>
+) => {
+  const queryClient = useQueryClient();
+  
+  // Query for fetching all {{tableNamePascalCaseSingular}} records
+  const query = useQuery<I{{tableNamePascalCaseSingular}}[], Error>({
+    queryKey: {{tableNameCamelCaseSingular}}Keys.lists(),
+    queryFn: () => {{tableNameCamelCaseSingular}}Api.getAll(),
+    initialData,
+    ...options
+  });
+
+  // Mutation for creating a new {{tableNamePascalCaseSingular}}
+  const createMutation = useMutation({
+    mutationFn: (new{{tableNamePascalCaseSingular}}: Omit<I{{tableNamePascalCaseSingular}}, 'id'>) => 
+      {{tableNameCamelCaseSingular}}Api.create(new{{tableNamePascalCaseSingular}}),
+    onSuccess: (data) => {
+      // Update query cache with new data
+      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
+    }
+  });
+
+  // Mutation for updating a {{tableNamePascalCaseSingular}}
+  const updateMutation = useMutation({
+    mutationFn: ({ id, ...data }: { id: number | string } & Partial<I{{tableNamePascalCaseSingular}}>) => 
+      {{tableNameCamelCaseSingular}}Api.update(id, data),
+    onSuccess: (data) => {
+      // Update queries that might have this data
+      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
+      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.detail(data.id) });
+    }
+  });
+
+  // Mutation for deleting a {{tableNamePascalCaseSingular}}
+  const deleteMutation = useMutation({
+    mutationFn: (id: number | string) => {{tableNameCamelCaseSingular}}Api.delete(id),
+    onSuccess: (_, id) => {
+      // Remove from cache
+      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
+      queryClient.removeQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.detail(id) });
+    }
+  });
+
+  // Return both the query result and mutations
+  return {
+    // Query states and data
+    data: query.data || [],
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    refetch: query.refetch,
+    
+    // Mutation methods
+    create{{tableNamePascalCaseSingular}}: createMutation.mutate,
+    update{{tableNamePascalCaseSingular}}: updateMutation.mutate,
+    delete{{tableNamePascalCaseSingular}}: deleteMutation.mutate,
+    
+    // Mutation states
+    isCreating: createMutation.isPending,
+    isUpdating: updateMutation.isPending,
+    isDeleting: deleteMutation.isPending
+  };
+};
+
+/**
+ * Custom hook for fetching a single {{tableNamePascalCaseSingular}} by ID
+ */
+export const use{{tableNamePascalCaseSingular}}Details = (
+  id: number | string,
+  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}, Error, I{{tableNamePascalCaseSingular}}, QueryKey>, 'queryKey' | 'queryFn'>
+) => {
+  const queryClient = useQueryClient();
+  
+  const query = useQuery<I{{tableNamePascalCaseSingular}}, Error>({
+    queryKey: {{tableNameCamelCaseSingular}}Keys.detail(id),
+    queryFn: () => {{tableNameCamelCaseSingular}}Api.getById(id),
+    ...options
+  });
+
+  // Mutation for updating this specific {{tableNamePascalCaseSingular}}
+  const updateMutation = useMutation({
+    mutationFn: (data: Partial<I{{tableNamePascalCaseSingular}}>) => 
+      {{tableNameCamelCaseSingular}}Api.update(id, data),
+    onSuccess: (data) => {
+      // Update cache for this specific item
+      queryClient.setQueryData({{tableNameCamelCaseSingular}}Keys.detail(id), data);
+      // Also invalidate the list query
+      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
+    }
+  });
+
+  return {
+    {{tableNameCamelCaseSingular}}: query.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    update{{tableNamePascalCaseSingular}}: updateMutation.mutate,
+    isUpdating: updateMutation.isPending
+  };
+}; 

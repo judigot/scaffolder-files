@@ -1,0 +1,87 @@
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+// Define response types for better type safety
+interface IApiResponse<T> {
+  data: T;
+  message?: string;
+}
+
+interface IErrorResponse {
+  error: string;
+  message: string;
+  statusCode: number;
+}
+
+class ApiClient {
+  private client: AxiosInstance;
+  private endpoint: string;
+
+  constructor() {
+    this.endpoint = '/api/{{tableNameKebabCasePlural}}';
+    this.client = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_API_URL || '',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // Add response interceptor for consistent error handling
+    this.client.interceptors.response.use(
+      (response) => response,
+      (error: AxiosError<IErrorResponse>) => {
+        // Enhance error with more context if needed
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  // Fetch all records
+  async getAll(): Promise<I{{tableNamePascalCaseSingular}}[]> {
+    const response = await this.client.get<IApiResponse<I{{tableNamePascalCaseSingular}}[]>>(this.endpoint);
+    return response.data.data;
+  }
+
+  // Fetch single record by ID
+  async getById(id: number | string): Promise<I{{tableNamePascalCaseSingular}}> {
+    const response = await this.client.get<IApiResponse<I{{tableNamePascalCaseSingular}}>>(
+      `${this.endpoint}/${String(id)}`
+    );
+    return response.data.data;
+  }
+
+  // Create a new record
+  async create(data: Omit<I{{tableNamePascalCaseSingular}}, 'id'>): Promise<I{{tableNamePascalCaseSingular}}> {
+    const response = await this.client.post<IApiResponse<I{{tableNamePascalCaseSingular}}>>(
+      this.endpoint,
+      data
+    );
+    return response.data.data;
+  }
+
+  // Update an existing record
+  async update(id: number | string, data: Partial<I{{tableNamePascalCaseSingular}}>): Promise<I{{tableNamePascalCaseSingular}}> {
+    const response = await this.client.put<IApiResponse<I{{tableNamePascalCaseSingular}}>>(
+      `${this.endpoint}/${String(id)}`,
+      data
+    );
+    return response.data.data;
+  }
+
+  // Delete a record
+  async delete(id: number | string): Promise<void> {
+    await this.client.delete(`${this.endpoint}/${String(id)}`);
+  }
+
+  // Custom method example - can be expanded based on needs
+  async search(query: string): Promise<I{{tableNamePascalCaseSingular}}[]> {
+    const response = await this.client.get<IApiResponse<I{{tableNamePascalCaseSingular}}[]>>(
+      `${this.endpoint}/search`,
+      { params: { query } }
+    );
+    return response.data.data;
+  }
+}
+
+// Create and export a singleton instance
+export const {{tableNameCamelCaseSingular}}Api = new ApiClient(); 
