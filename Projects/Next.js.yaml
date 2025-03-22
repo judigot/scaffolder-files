@@ -1,14 +1,14 @@
 src:
   app:
     api:
-      [[tableNameKebabCasePlural]]:
+      CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
         - CREATE_FILE(route.ts --template /Templates/backend/nextjs/ApiEndpoint.txt)
-    [[tableNameKebabCasePlural]]:
+    CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
       - CREATE_FILE(page.tsx --template /Templates/backend/nextjs/PageTemplate.txt)
   components:
     - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/Component.txt)
   hooks:
-    - CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+    CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
       - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/React-Hook.txt)
   interfaces:
     - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
