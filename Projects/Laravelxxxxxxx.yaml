@@ -1,4 +1,4 @@
-aaaaaaaaaaaaaaaaapp:
+aaaaaaaaapp:
   Http:
     Controllers:
       - CREATE_FILE(BaseController.php --template /Templates/backend/laravel/BaseController.txt)
