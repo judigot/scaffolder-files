@@ -14,14 +14,14 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${String(response.status)}`);
       }
 
       const data = await response.json();
       return data.data || [];
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${error.message}`);
+        throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${String(error.message)}`);
       }
       throw new Error('An unknown error occurred');
     }
@@ -39,14 +39,14 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${String(response.status)}`);
       }
 
       const data = await response.json();
       return data.data;
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${error.message}`);
+        throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
       }
       throw new Error('An unknown error occurred');
     }
@@ -65,14 +65,14 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${String(response.status)}`);
       }
 
       const result = await response.json();
       return result.data;
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Failed to create {{tableNameCamelCaseSingular}}: ${error.message}`);
+        throw new Error(`Failed to create {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
       }
       throw new Error('An unknown error occurred');
     }
@@ -91,14 +91,14 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${String(response.status)}`);
       }
 
       const result = await response.json();
       return result.data;
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${error.message}`);
+        throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
       }
       throw new Error('An unknown error occurred');
     }
@@ -116,11 +116,11 @@ export const api = {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
+        throw new Error(`HTTP error: ${String(response.status)}`);
       }
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(`Failed to delete {{tableNameCamelCaseSingular}}: ${error.message}`);
+        throw new Error(`Failed to delete {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
       }
       throw new Error('An unknown error occurred');
     }
