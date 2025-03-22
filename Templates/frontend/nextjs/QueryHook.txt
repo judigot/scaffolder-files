@@ -1,44 +1,182 @@
-import { 
-  useQuery, 
-  useMutation, 
+import {
+  UseQueryOptions,
+  UseQueryResult,
+  useMutation,
+  useQuery,
   useQueryClient,
-  QueryKey,
-  UseQueryOptions
 } from '@tanstack/react-query';
 import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
-import { {{tableNameCamelCaseSingular}}Api } from './api';
 
 // Define query keys for better cache management
 export const {{tableNameCamelCaseSingular}}Keys = {
   all: ['{{tableNameCamelCasePlural}}'] as const,
   lists: () => [...{{tableNameCamelCaseSingular}}Keys.all, 'list'] as const,
-  list: (filters: string) => [...{{tableNameCamelCaseSingular}}Keys.lists(), { filters }] as const,
   details: () => [...{{tableNameCamelCaseSingular}}Keys.all, 'detail'] as const,
   detail: (id: number | string) => [...{{tableNameCamelCaseSingular}}Keys.details(), id] as const,
+};
+
+// API fetch functions
+const api = {
+  // Fetch all records
+  async getAll(): Promise<I{{tableNamePascalCaseSingular}}[]> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data || [];
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Fetch single record by ID
+  async getById(id: number | string): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Create a new record
+  async create(data: Omit<I{{tableNamePascalCaseSingular}}, 'id'>): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to create {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Update an existing record
+  async update(id: number | string, data: Partial<I{{tableNamePascalCaseSingular}}>): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Delete a record
+  async delete(id: number | string): Promise<void> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to delete {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
 };
 
 /**
  * Custom hook for fetching and managing {{tableNamePascalCaseSingular}} data
  */
 export const use{{tableNamePascalCaseSingular}} = (
-  initialData?: I{{tableNamePascalCaseSingular}}[],
-  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}[], Error, I{{tableNamePascalCaseSingular}}[], QueryKey>, 'queryKey' | 'queryFn'>
-) => {
+  behavior?: Omit<UseQueryOptions, 'queryKey' | 'queryFn'>
+): UseQueryResult<I{{tableNamePascalCaseSingular}}[], Error> & {
+  create{{tableNamePascalCaseSingular}}: (data: Omit<I{{tableNamePascalCaseSingular}}, 'id'>, options?: any) => void;
+  update{{tableNamePascalCaseSingular}}: (data: { id: number | string } & Partial<I{{tableNamePascalCaseSingular}}>, options?: any) => void;
+  delete{{tableNamePascalCaseSingular}}: (id: number | string, options?: any) => void;
+  isCreating: boolean;
+  isUpdating: boolean;
+  isDeleting: boolean;
+} => {
   const queryClient = useQueryClient();
   
   // Query for fetching all {{tableNamePascalCaseSingular}} records
-  const query = useQuery<I{{tableNamePascalCaseSingular}}[], Error>({
+  const query = useQuery({
     queryKey: {{tableNameCamelCaseSingular}}Keys.lists(),
-    queryFn: () => {{tableNameCamelCaseSingular}}Api.getAll(),
-    initialData,
-    ...options
+    queryFn: api.getAll,
+    
+    // Default settings that can be overridden
+    refetchInterval: 30 * 1000, // 30 seconds
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: 'always',
+    retry: 1,
+    
+    ...behavior // Override defaults with passed behavior
   });
 
   // Mutation for creating a new {{tableNamePascalCaseSingular}}
   const createMutation = useMutation({
     mutationFn: (new{{tableNamePascalCaseSingular}}: Omit<I{{tableNamePascalCaseSingular}}, 'id'>) => 
-      {{tableNameCamelCaseSingular}}Api.create(new{{tableNamePascalCaseSingular}}),
-    onSuccess: (data) => {
+      api.create(new{{tableNamePascalCaseSingular}}),
+    onSuccess: () => {
       // Update query cache with new data
       queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
     }
@@ -47,17 +185,19 @@ export const use{{tableNamePascalCaseSingular}} = (
   // Mutation for updating a {{tableNamePascalCaseSingular}}
   const updateMutation = useMutation({
     mutationFn: ({ id, ...data }: { id: number | string } & Partial<I{{tableNamePascalCaseSingular}}>) => 
-      {{tableNameCamelCaseSingular}}Api.update(id, data),
+      api.update(id, data),
     onSuccess: (data) => {
       // Update queries that might have this data
       queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
-      queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.detail(data.id) });
+      if (data.id) {
+        queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.detail(data.id) });
+      }
     }
   });
 
   // Mutation for deleting a {{tableNamePascalCaseSingular}}
   const deleteMutation = useMutation({
-    mutationFn: (id: number | string) => {{tableNameCamelCaseSingular}}Api.delete(id),
+    mutationFn: (id: number | string) => api.delete(id),
     onSuccess: (_, id) => {
       // Remove from cache
       queryClient.invalidateQueries({ queryKey: {{tableNameCamelCaseSingular}}Keys.lists() });
@@ -67,13 +207,7 @@ export const use{{tableNamePascalCaseSingular}} = (
 
   // Return both the query result and mutations
   return {
-    // Query states and data
-    data: query.data || [],
-    isLoading: query.isLoading,
-    isError: query.isError,
-    error: query.error,
-    refetch: query.refetch,
-    
+    ...query,
     // Mutation methods
     create{{tableNamePascalCaseSingular}}: createMutation.mutate,
     update{{tableNamePascalCaseSingular}}: updateMutation.mutate,
@@ -91,20 +225,30 @@ export const use{{tableNamePascalCaseSingular}} = (
  */
 export const use{{tableNamePascalCaseSingular}}Details = (
   id: number | string,
-  options?: Omit<UseQueryOptions<I{{tableNamePascalCaseSingular}}, Error, I{{tableNamePascalCaseSingular}}, QueryKey>, 'queryKey' | 'queryFn'>
-) => {
+  behavior?: Omit<UseQueryOptions, 'queryKey' | 'queryFn'>
+): UseQueryResult<I{{tableNamePascalCaseSingular}}, Error> & {
+  update{{tableNamePascalCaseSingular}}: (data: Partial<I{{tableNamePascalCaseSingular}}>, options?: any) => void;
+  isUpdating: boolean;
+} => {
   const queryClient = useQueryClient();
   
-  const query = useQuery<I{{tableNamePascalCaseSingular}}, Error>({
+  const query = useQuery({
     queryKey: {{tableNameCamelCaseSingular}}Keys.detail(id),
-    queryFn: () => {{tableNameCamelCaseSingular}}Api.getById(id),
-    ...options
+    queryFn: () => api.getById(id),
+    
+    // Default settings that can be overridden
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnWindowFocus: 'always',
+    retry: 1,
+    
+    ...behavior // Override defaults with passed behavior
   });
 
   // Mutation for updating this specific {{tableNamePascalCaseSingular}}
   const updateMutation = useMutation({
     mutationFn: (data: Partial<I{{tableNamePascalCaseSingular}}>) => 
-      {{tableNameCamelCaseSingular}}Api.update(id, data),
+      api.update(id, data),
     onSuccess: (data) => {
       // Update cache for this specific item
       queryClient.setQueryData({{tableNameCamelCaseSingular}}Keys.detail(id), data);
@@ -114,10 +258,7 @@ export const use{{tableNamePascalCaseSingular}}Details = (
   });
 
   return {
-    {{tableNameCamelCaseSingular}}: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
-    error: query.error,
+    ...query,
     update{{tableNamePascalCaseSingular}}: updateMutation.mutate,
     isUpdating: updateMutation.isPending
   };
