@@ -12,5 +12,3 @@ src:
       - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/React-Hook.txt)
   interfaces:
     - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
-public:
-  - CREATE_FILE(favicon.ico)
