@@ -1,0 +1,128 @@
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+
+// API fetch functions
+export const api = {
+  // Fetch all records
+  async getAll(): Promise<I{{tableNamePascalCaseSingular}}[]> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data || [];
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Fetch single record by ID
+  async getById(id: number | string): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Create a new record
+  async create(data: Omit<I{{tableNamePascalCaseSingular}}, 'id'>): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to create {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Update an existing record
+  async update(id: number | string, data: Partial<I{{tableNamePascalCaseSingular}}>): Promise<I{{tableNamePascalCaseSingular}}> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return result.data;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to update {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+
+  // Delete a record
+  async delete(id: number | string): Promise<void> {
+    try {
+      const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(`Failed to delete {{tableNameCamelCaseSingular}}: ${error.message}`);
+      }
+      throw new Error('An unknown error occurred');
+    }
+  },
+}; 

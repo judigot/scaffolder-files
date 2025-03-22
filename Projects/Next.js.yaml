@@ -2,7 +2,7 @@ src:
   app:
     api:
       CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
-        - CREATE_FILE(route.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
+        - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
     CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
       - CREATE_FILE(page.tsx --template /Templates/backend/nextjs/PageTemplate.txt)
   components:
