@@ -3,10 +3,10 @@ src:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
                 - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/route.txt)
-                - CREATE_MULTIPLE_FILES(GET.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
-                - CREATE_MULTIPLE_FILES(POST.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
-                - CREATE_MULTIPLE_FILES(PATCH.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
-                - CREATE_MULTIPLE_FILES(DELETE.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
+                - CREATE_MULTIPLE_FILES(GET.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/GET.txt)
+                - CREATE_MULTIPLE_FILES(POST.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/POST.txt)
+                - CREATE_MULTIPLE_FILES(PATCH.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/PATCH.txt)
+                - CREATE_MULTIPLE_FILES(DELETE.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/DELETE.txt)
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
             - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/frontend/react/components/page.txt)
             - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --use-related-table --template /Templates/frontend/react/components/EntityComponent.txt)
