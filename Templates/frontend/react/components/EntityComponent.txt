@@ -1,289 +1,39 @@
-import React, { useState } from 'react';
-import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
-import { use{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/use{{tableNamePascalCaseSingular}}';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
-import { MoreHorizontal, Edit, Trash, Plus, Loader2 } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { useEffect, useMemo, useState } from 'react';
+import DataTable from './DataTable';
+import { useIndex{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useIndex{{tableNamePascalCaseSingular}}.ts';
+import { useCreate{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useCreate{{tableNamePascalCaseSingular}}.ts';
+import { useUpdate{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useUpdate{{tableNamePascalCaseSingular}}.ts';
+import { useDelete{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useDelete{{tableNamePascalCaseSingular}}.ts';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}.ts';
 
-export default function {{tableNamePascalCaseSingular}}List() {
-  // State for the form dialog
-  const [isOpen, setIsOpen] = useState(false);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
-  const [currentItem, setCurrentItem] = useState<I{{tableNamePascalCaseSingular}} | null>(null);
-  const [formData, setFormData] = useState<Partial<I{{tableNamePascalCaseSingular}}>>({
-    name: '',
-    description: '',
-  });
-  const [itemToDelete, setItemToDelete] = useState<number | null>(null);
+export default function {{tableNamePascalCaseSingular}}Component() {
+  const { data = [], isLoading, refetch } = useIndex{{tableNamePascalCaseSingular}}();
+  const { mutate: createRecord } = useCreate{{tableNamePascalCaseSingular}}({ onSuccess: refetch });
+  const { mutate: updateRecord } = useUpdate{{tableNamePascalCaseSingular}}();
+  const { mutate: deleteRecord } = useDelete{{tableNamePascalCaseSingular}}({ onSuccess: refetch });
 
-  // Use our TanStack Query hook with customized settings
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    create{{tableNamePascalCaseSingular}},
-    update{{tableNamePascalCaseSingular}},
-    delete{{tableNamePascalCaseSingular}},
-    isCreating,
-    isUpdating,
-    isDeleting
-  } = use{{tableNamePascalCaseSingular}}({
-    // Override default settings if needed
-    refetchInterval: 10 * 1000, // 10 seconds - more frequent for real-time updates
-    staleTime: 1 * 60 * 1000, // 1 minute - more responsive updates
-  });
+  const columns = useMemo(() => {
+    if (data.length === 0) return [];
+    return Object.keys(data[0]).filter(key => key !== 'id').map(key => ({
+      accessorKey: key,
+      header: key.charAt(0).toUpperCase() + key.slice(1),
+      cell: (info: any) => info.getValue(),
+    }));
+  }, [data]);
 
-  // Handle form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const handleSearch = (query: string) => {
+    refetch(); // If search logic is backend-driven, update parameters in hook
   };
-
-  // Open create form
-  const handleCreate = () => {
-    setFormMode('create');
-    setFormData({ name: '', description: '' });
-    setIsOpen(true);
-  };
-
-  // Open edit form
-  const handleEdit = (item: I{{tableNamePascalCaseSingular}}) => {
-    setFormMode('edit');
-    setCurrentItem(item);
-    setFormData({ 
-      name: item.name, 
-      description: item.description 
-    });
-    setIsOpen(true);
-  };
-
-  // Open delete confirmation
-  const handleDeleteClick = (id: number) => {
-    setItemToDelete(id);
-    setIsConfirmOpen(true);
-  };
-
-  // Submit form for create/edit
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (formMode === 'create') {
-      create{{tableNamePascalCaseSingular}}(formData as Omit<I{{tableNamePascalCaseSingular}}, 'id'>, {
-        onSuccess: () => {
-          toast({
-            title: 'Success',
-            description: '{{tableNamePascalCaseSingular}} created successfully',
-          });
-          setIsOpen(false);
-        },
-        onError: (error) => {
-          toast({
-            title: 'Error',
-            description: `Failed to create {{tableNamePascalCaseSingular}}: ${String(error.message)}`,
-            variant: 'destructive',
-          });
-        }
-      });
-    } else if (formMode === 'edit' && currentItem) {
-      update{{tableNamePascalCaseSingular}}(
-        { id: currentItem.id, ...formData },
-        {
-          onSuccess: () => {
-            toast({
-              title: 'Success',
-              description: '{{tableNamePascalCaseSingular}} updated successfully',
-            });
-            setIsOpen(false);
-          },
-          onError: (error) => {
-            toast({
-              title: 'Error',
-              description: `Failed to update {{tableNamePascalCaseSingular}}: ${String(error.message)}`,
-              variant: 'destructive',
-            });
-          }
-        }
-      );
-    }
-  };
-
-  // Confirm delete
-  const confirmDelete = () => {
-    if (itemToDelete !== null) {
-      delete{{tableNamePascalCaseSingular}}(itemToDelete, {
-        onSuccess: () => {
-          toast({
-            title: 'Success',
-            description: '{{tableNamePascalCaseSingular}} deleted successfully',
-          });
-          setIsConfirmOpen(false);
-        },
-        onError: (error) => {
-          toast({
-            title: 'Error',
-            description: `Failed to delete {{tableNamePascalCaseSingular}}: ${String(error.message)}`,
-            variant: 'destructive',
-          });
-        }
-      });
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[200px]">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <span className="ml-2">Loading {{tableNamePascalCasePlural}}...</span>
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-        <p>Error: {String(error?.message || 'Failed to load data')}</p>
-        <Button className="mt-2" variant="outline" onClick={() => window.location.reload()}>
-          Retry
-        </Button>
-      </div>
-    );
-  }
 
   return (
-    <div className="container mx-auto py-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">{{tableNamePascalCasePlural}}</h1>
-        <Button onClick={handleCreate} className="flex items-center gap-1">
-          <Plus className="h-4 w-4" /> New {{tableNamePascalCaseSingular}}
-        </Button>
-      </div>
-
-      {data?.length === 0 ? (
-        <div className="text-center p-8 border rounded-lg bg-muted/20">
-          <p className="text-muted-foreground mb-4">No {{tableNamePascalCasePlural}} found</p>
-          <Button onClick={handleCreate} variant="outline" className="flex items-center gap-1">
-            <Plus className="h-4 w-4" /> Create your first {{tableNamePascalCaseSingular}}
-          </Button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data?.map((item) => (
-            <Card key={item.id} className="overflow-hidden">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-xl font-bold">{item.name}</CardTitle>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                      <span className="sr-only">Open menu</span>
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => handleEdit(item)}>
-                      <Edit className="mr-2 h-4 w-4" /> Edit
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleDeleteClick(item.id)} className="text-red-600">
-                      <Trash className="mr-2 h-4 w-4" /> Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">{item.description}</p>
-              </CardContent>
-              {item.createdAt && (
-                <CardFooter className="text-xs text-muted-foreground">
-                  Created: {new Date(item.createdAt).toLocaleDateString()}
-                  {item.updatedAt && item.updatedAt !== item.createdAt && 
-                    ` · Updated: ${new Date(item.updatedAt).toLocaleDateString()}`
-                  }
-                </CardFooter>
-              )}
-            </Card>
-          ))}
-        </div>
-      )}
-
-      {/* Create/Edit Dialog */}
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{formMode === 'create' ? 'Create' : 'Edit'} {{tableNamePascalCaseSingular}}</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                name="name"
-                value={formData.name || ''}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                name="description"
-                value={formData.description || ''}
-                onChange={handleChange}
-                rows={3}
-              />
-            </div>
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>
-                Cancel
-              </Button>
-              <Button 
-                type="submit" 
-                disabled={isCreating || isUpdating}
-              >
-                {(isCreating || isUpdating) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {formMode === 'create' ? 'Create' : 'Update'}
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Confirmation Dialog */}
-      <Dialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirm Delete</DialogTitle>
-          </DialogHeader>
-          <p>Are you sure you want to delete this {{tableNamePascalCaseSingular}}? This action cannot be undone.</p>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setIsConfirmOpen(false)}>
-              Cancel
-            </Button>
-            <Button 
-              variant="destructive" 
-              onClick={confirmDelete} 
-              disabled={isDeleting}
-            >
-              {isDeleting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Delete
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <DataTable<I{{tableNamePascalCaseSingular}}>
+      data={data}
+      columns={columns}
+      searchPlaceholder={`Search {{tableNamePascalCasePlural}}...`}
+      onSearch={handleSearch}
+      isLoading={isLoading}
+      onDelete={(id) => deleteRecord(id)}
+      onUpdate={(id, values) => updateRecord(id, values)}
+    />
   );
-} 
+}
