@@ -6,7 +6,7 @@ src:
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
             - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/frontend/nextjs/PageTemplate.txt)
     components:
-        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/react/Component.txt)
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/react/EntityComponent.txt)
     hooks:
         shared:
             - CREATE_FILE(useIndex.ts --template /Templates/frontend/nextjs/hooks/shared/useIndex.txt)
