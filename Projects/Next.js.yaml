@@ -9,11 +9,11 @@ src:
         - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/Component.txt)
     hooks:
         shared:
-            - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/nextjs/useDataAPICall.txt)
-            - CREATE_MULTIPLE_FILES(use{{tableNamePascalCasePlural}}.ts --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
-            - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
-            - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
-            - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
+            - CREATE_FILE(index.ts --template /Templates/frontend/nextjs/useDataAPICall.txt)
+            - CREATE_FILE(findById.ts --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
+            - CREATE_FILE(create.ts --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
+            - CREATE_FILE(update.ts --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
+            - CREATE_FILE(destroy.ts --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
     lib:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
