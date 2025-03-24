@@ -21,8 +21,7 @@ src:
             - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useUpdateEntity.txt)
             - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useDeleteEntity.txt)
     lib:
-        api:
-            - CREATE_FILE(axiosInstance.ts --template /Templates/frontend/nextjs/lib/api/axiosInstance.txt)
+        - CREATE_FILE(axiosInstance.ts --template /Templates/frontend/nextjs/lib/api/axiosInstance.txt)
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
                 - CREATE_MULTIPLE_FILES(fetch{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/fetchMany.txt)
