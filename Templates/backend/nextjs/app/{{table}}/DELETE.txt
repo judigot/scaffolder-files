@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import DatatypeParser from '@/utils/DataTypeParser.ts';
 import { prisma } from '@/prisma/DatabaseClient';
 import { {{tableName}} } from '@prisma/client';
-import { {{tableNamePascalCase}} } from '@/app/Controllers/{{tableNamePascalCase}}Controller.ts';
+import { {{tableNamePascalCase}} } from '@/Controllers/{{tableNamePascalCase}}Controller.ts';
 
 type Body = Omit<{{tableName}}, '{{primaryKey}}'>
 
