@@ -13,7 +13,9 @@ src:
     prisma:
         - CREATE_FILE(DatabaseClient.ts --template /Templates/backend/nextjs/prisma/DatabaseClient.txt)
     Controllers:
-        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.ts --template /Templates/backend/nextjs/Controllers/EntityController.txt)            
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.ts --template /Templates/backend/nextjs/Controllers/EntityController.txt)
+    utils:
+        - CREATE_FILE(DataTypeParser.ts --template /Templates/backend/nextjs/utils/DataTypeParser.ts)
     components:
         - CREATE_FILE(DataTable.tsx --template /Templates/frontend/react/components/DataTable.txt)
     hooks:
