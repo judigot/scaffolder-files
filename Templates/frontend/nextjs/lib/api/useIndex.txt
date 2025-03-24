@@ -1,34 +1,22 @@
 import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+import { axiosInstance } from '@/vendor/axiosInstance';
 
 /**
- * Fetches a single {{tableNamePascalCaseSingular}} by ID from the API
- * @param id The ID of the {{tableNamePascalCaseSingular}} to fetch
- * @returns Promise resolving to the {{tableNamePascalCaseSingular}} object
+ * Fetches all {{tableNamePascalCasePlural}} from the API
+ * @returns Promise resolving to an array of {{tableNamePascalCaseSingular}} objects
  */
-export const get{{tableNamePascalCaseSingular}} = async (id: number | string): Promise<I{{tableNamePascalCaseSingular}}> => {
+export const fetch{{tableNamePascalCasePlural}} = async (): Promise<I{{tableNamePascalCaseSingular}}[]> => {
   try {
-    const response = await fetch(`/api/{{tableNameKebabCasePlural}}/${String(id)}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store', // Don't cache this request
-    });
+    const response = await axiosInstance.get('/{{tableNameKebabCasePlural}}');
 
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${String(response.status)}`);
-    }
-
-    const result = await response.json();
-    return result.data;
+    return response.data.data || [];
   } catch (error: unknown) {
     if (typeof error === 'string') {
-      throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${error}`);
+      throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${error}`);
     }
     if (error instanceof Error) {
-      throw new Error(`Failed to fetch {{tableNameCamelCaseSingular}}: ${String(error.message)}`);
+      throw new Error(`Failed to fetch {{tableNameCamelCasePlural}}: ${String(error.message)}`);
     }
     throw new Error('An unknown error occurred');
   }
-}; 
+};
