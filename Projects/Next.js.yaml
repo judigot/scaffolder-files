@@ -1,4 +1,4 @@
-src:
+aaaaaasrc:
     app:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
@@ -14,12 +14,12 @@ src:
             - CREATE_MULTIPLE_FILES(useCreate.ts --use-related-table --template /Templates/frontend/nextjs/hooks/shared/useCreate.txt)
             - CREATE_MULTIPLE_FILES(useUpdate.ts --use-related-table --template /Templates/frontend/nextjs/hooks/shared/useUpdate.txt)
             - CREATE_MULTIPLE_FILES(useDelete.ts --use-related-table --template /Templates/frontend/nextjs/hooks/shared/useDelete.txt)
-        # CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-        #     - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useIndexEntity.txt)
-        #     - CREATE_MULTIPLE_FILES(useFindById{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useFindByIdEntity.txt)
-        #     - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useCreateEntity.txt)
-        #     - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useUpdateEntity.txt)
-        #     - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useDeleteEntity.txt)
+        CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+            - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useIndexEntity.txt)
+            - CREATE_MULTIPLE_FILES(useFindById{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useFindByIdEntity.txt)
+            - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useCreateEntity.txt)
+            - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useUpdateEntity.txt)
+            - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useDeleteEntity.txt)
     lib:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
