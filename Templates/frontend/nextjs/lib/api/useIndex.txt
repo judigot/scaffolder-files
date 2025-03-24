@@ -1,5 +1,5 @@
 import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
-import { axiosInstance } from '@/vendor/axiosInstance';
+import { axiosInstance } from '@/vendor/axiosInstance.ts';
 
 /**
  * Fetches all {{tableNamePascalCasePlural}} from the API

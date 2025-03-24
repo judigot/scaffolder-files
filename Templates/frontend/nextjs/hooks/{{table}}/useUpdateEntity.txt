@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
-import { update{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/update{{tableNamePascalCaseSingular}}';
-import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
+import { update{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/update{{tableNamePascalCaseSingular}}.ts';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}.ts';
 
 export const useUpdate{{tableNamePascalCaseSingular}} = (
   id: number | string,
