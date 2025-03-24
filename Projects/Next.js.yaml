@@ -10,6 +10,8 @@ src:
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
             - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/frontend/react/components/page.txt)
             - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --use-related-table --template /Templates/frontend/react/components/EntityComponent.txt)
+    Controllers:
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.ts --template /Templates/backend/nextjs/Http/Controllers/EntityController.txt)            
     components:
         - CREATE_FILE(DataTable.tsx --template /Templates/frontend/react/components/DataTable.txt)
     hooks:
