@@ -15,7 +15,7 @@ src:
     Controllers:
         - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.ts --template /Templates/backend/nextjs/Controllers/EntityController.txt)
     utils:
-        - CREATE_FILE(DataTypeParser.ts --template /Templates/backend/nextjs/utils/DataTypeParser.ts)
+        - CREATE_FILE(DataTypeParser.ts --template /Templates/backend/nextjs/utils/DataTypeParser.txt)
     components:
         - CREATE_FILE(DataTable.tsx --template /Templates/frontend/react/components/DataTable.txt)
     hooks:
