@@ -2,9 +2,9 @@ src:
     app:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
-                - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
+                - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/app/{{table}}/route.txt)
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
-            - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/frontend/nextjs/PageTemplate.txt)
+            - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/frontend/react/components/page.txt)
             - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --use-related-table --template /Templates/frontend/react/components/EntityComponent.txt)
     components:
         - CREATE_FILE(DataTable.tsx --template /Templates/frontend/react/components/DataTable.txt)

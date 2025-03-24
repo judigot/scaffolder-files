@@ -2,16 +2,13 @@
 
 import React from 'react';
 import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}';
-import { {{tableNameCamelCaseSingular}}Keys } from '@/hooks/{{tableNameKebabCaseSingular}}/use{{tableNamePascalCaseSingular}}';
-import {{tableNamePascalCaseSingular}}List from '@/components/{{tableNameKebabCaseSingular}}/{{tableNamePascalCaseSingular}}List';
-import { api } from '@/hooks/{{tableNameKebabCaseSingular}}/api';
+import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}.ts';
+import { {{tableNameCamelCaseSingular}}Keys } from '@/hooks/{{tableNameKebabCaseSingular}}/use{{tableNamePascalCaseSingular}}.ts';
+import {{tableNamePascalCaseSingular}}Component from './{{tableNamePascalCaseSingular}}Component';
+import { api } from '@/hooks/{{tableNameKebabCaseSingular}}/api.ts';
 
-// Page side component - SSR/Static - only for prefetching
 export async function generate{{tableNamePascalCaseSingular}}StaticProps() {
   const queryClient = new QueryClient();
-  
-  // Prefetch data for the page
   await queryClient.prefetchQuery({
     queryKey: {{tableNameCamelCaseSingular}}Keys.lists(),
     queryFn: api.getAll
@@ -26,7 +23,6 @@ interface I{{tableNamePascalCaseSingular}}PageProps {
   dehydratedState: unknown;
 }
 
-// Client side component - for interactivity
 export default function {{tableNamePascalCaseSingular}}Page({
   dehydratedState,
 }: I{{tableNamePascalCaseSingular}}PageProps) {
@@ -34,8 +30,8 @@ export default function {{tableNamePascalCaseSingular}}Page({
     <HydrationBoundary state={dehydratedState}>
       <div className="container mx-auto py-8">
         <h1 className="text-4xl font-bold mb-8">{{tableNamePascalCaseSingular}} Management</h1>
-        <{{tableNamePascalCaseSingular}}List />
+        <{{tableNamePascalCaseSingular}}Component />
       </div>
     </HydrationBoundary>
   );
-} 
+}
