@@ -1,33 +1,33 @@
 app:
-  Http:
-    Controllers:
-      - CREATE_FILE(BaseController.php --template /Templates/backend/laravel/BaseController.txt)
-      - CREATE_FILE(AuthController.php --conditions hasUsers=true --template /Templates/backend/laravel/AuthController.txt)
-      - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.php --template /Templates/backend/laravel/Controller.txt)
-    Resources:
-      - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Resource.php --template /Templates/backend/laravel/Resource.txt)
-  Repositories:
-    - CREATE_FILE(BaseRepository.php --template /Templates/backend/laravel/BaseRepository.txt)
-    - CREATE_FILE(BaseInterface.php --template /Templates/backend/laravel/BaseInterface.txt)
-    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Repository.php --template /Templates/backend/laravel/Repository.txt)
-  Services:
-    - CREATE_FILE(BaseService.php --template /Templates/backend/laravel/BaseService.txt)
-    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Service.php --template /Templates/backend/laravel/Service.txt)
-  Models:
-    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}.php --template /Templates/backend/laravel/Model.txt)
-  Providers:
-    - CREATE_FILE(AppServiceProvider.php --template /Templates/backend/laravel/AppServiceProvider.txt)
+    Http:
+        Controllers:
+            - CREATE_FILE(BaseController.php --template /Templates/backend/laravel/BaseController.txt)
+            - CREATE_FILE(AuthController.php --conditions hasUsers=true --template /Templates/backend/laravel/AuthController.txt)
+            - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Controller.php --template /Templates/backend/laravel/Controller.txt)
+        Resources:
+            - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Resource.php --template /Templates/backend/laravel/Resource.txt)
+    Repositories:
+        - CREATE_FILE(BaseRepository.php --template /Templates/backend/laravel/BaseRepository.txt)
+        - CREATE_FILE(BaseInterface.php --template /Templates/backend/laravel/BaseInterface.txt)
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Repository.php --template /Templates/backend/laravel/Repository.txt)
+    Services:
+        - CREATE_FILE(BaseService.php --template /Templates/backend/laravel/BaseService.txt)
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Service.php --template /Templates/backend/laravel/Service.txt)
+    Models:
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}.php --template /Templates/backend/laravel/Model.txt)
+    Providers:
+        - CREATE_FILE(AppServiceProvider.php --template /Templates/backend/laravel/AppServiceProvider.txt)
 routes:
-  - CREATE_FILE(api.php --template /Templates/backend/laravel/api.txt)
-  - CREATE_MULTIPLE_FILES({{tableNameKebabCasePlural}}.php --template /Templates/backend/laravel/Route.txt)
+    - CREATE_FILE(api.php --template /Templates/backend/laravel/api.txt)
+    - CREATE_MULTIPLE_FILES({{tableNameKebabCasePlural}}.php --template /Templates/backend/laravel/Route.txt)
 frontend:
-  src:
-    hooks:
-      CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-      - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(use{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
-    interfaces:
-      - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
+    src:
+        hooks:
+            CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+                - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(use{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
+        interfaces:
+            - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
