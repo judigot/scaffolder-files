@@ -23,11 +23,11 @@ src:
     lib:
         api:
             - CREATE_FILE(axiosInstance.ts --template /Templates/frontend/nextjs/lib/api/axiosInstance.txt)
-            # CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-            #     - CREATE_MULTIPLE_FILES(fetch{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/fetchMany.txt)
-            #     - CREATE_MULTIPLE_FILES(fetch{{tableNamePascalCaseSingular}}ById.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/fetchById.txt)
-            #     - CREATE_MULTIPLE_FILES(create{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/create.txt)
-            #     - CREATE_MULTIPLE_FILES(update{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/update.txt)
-            #     - CREATE_MULTIPLE_FILES(delete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/delete.txt)
+            CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+                - CREATE_MULTIPLE_FILES(fetch{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/fetchMany.txt)
+                - CREATE_MULTIPLE_FILES(fetch{{tableNamePascalCaseSingular}}ById.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/fetchById.txt)
+                - CREATE_MULTIPLE_FILES(create{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/create.txt)
+                - CREATE_MULTIPLE_FILES(update{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/update.txt)
+                - CREATE_MULTIPLE_FILES(delete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/delete.txt)
     interfaces:
         - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
