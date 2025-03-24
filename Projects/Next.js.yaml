@@ -9,17 +9,17 @@ src:
         - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/Component.txt)
     hooks:
         shared:
-            - CREATE_FILE(useIndex.ts --template /Templates/frontend/nextjs/lib/api/useIndex.txt)
-            - CREATE_FILE(useFindById.ts --template /Templates/frontend/nextjs/lib/api/useFindById.txt)
-            - CREATE_FILE(useCreate.ts --template /Templates/frontend/nextjs/lib/api/useCreate.txt)
-            - CREATE_FILE(useUpdate.ts --template /Templates/frontend/nextjs/lib/api/useUpdate.txt)
-            - CREATE_FILE(useDelete.ts --template /Templates/frontend/nextjs/lib/api/useDelete.txt)
+            - CREATE_FILE(useIndex.ts --template /Templates/frontend/nextjs/hooks/useIndex.txt)
+            - CREATE_FILE(useFindById.ts --template /Templates/frontend/nextjs/hooks/useFindById.txt)
+            - CREATE_FILE(useCreate.ts --template /Templates/frontend/nextjs/hooks/useCreate.txt)
+            - CREATE_FILE(useUpdate.ts --template /Templates/frontend/nextjs/hooks/useUpdate.txt)
+            - CREATE_FILE(useDelete.ts --template /Templates/frontend/nextjs/hooks/useDelete.txt)
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-            - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useIndexEntity.txt)
-            - CREATE_MULTIPLE_FILES(useFindById{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useFindByIdEntity.txt)
-            - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useCreateEntity.txt)
-            - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useUpdateEntity.txt)
-            - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/useDeleteEntity.txt)
+            - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/{{table}}/useIndexEntity.txt)
+            - CREATE_MULTIPLE_FILES(useFindById{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useFindByIdEntity.txt)
+            - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useCreateEntity.txt)
+            - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useUpdateEntity.txt)
+            - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useDeleteEntity.txt)
     lib:
         api:
             CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
@@ -30,5 +30,6 @@ src:
                 - CREATE_MULTIPLE_FILES(delete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/lib/api/delete.txt)
     vendor:
         - CREATE_FILE(axiosInstance.ts --template /Templates/frontend/nextjs/vendor/axiosInstance.txt)
+        - CREATE_FILE(useQueryInstance.ts --template /Templates/frontend/nextjs/vendor/useQueryInstance.txt)
     interfaces:
         - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
