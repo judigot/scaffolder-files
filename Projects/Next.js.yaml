@@ -1,26 +1,27 @@
 src:
-  app:
-    api:
-      CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
-        - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
-    CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
-      - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/backend/nextjs/PageTemplate.txt)
-  components:
-    - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/Component.txt)
-  hooks:
-    CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-      - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(use{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
-      - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
-  lib:
-    api:
-      CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-        - CREATE_MULTIPLE_FILES(get{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/getDataAPICall.txt)
-        - CREATE_MULTIPLE_FILES(get{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/getManyDataAPICall.txt)
-        - CREATE_MULTIPLE_FILES(create{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/createDataAPICall.txt)
-        - CREATE_MULTIPLE_FILES(update{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/updateDataAPICall.txt)
-        - CREATE_MULTIPLE_FILES(delete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/deleteDataAPICall.txt)
-  interfaces:
-    - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
+    app:
+        api:
+            CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
+                - CREATE_MULTIPLE_FILES(route.ts --use-related-table --template /Templates/backend/nextjs/ApiEndpoint.txt)
+        CREATE_DYNAMIC_FOLDERS({{tableNameKebabCasePlural}}):
+            - CREATE_MULTIPLE_FILES(page.tsx --use-related-table --template /Templates/backend/nextjs/PageTemplate.txt)
+    components:
+        - CREATE_MULTIPLE_FILES({{tableNamePascalCaseSingular}}Component.tsx --template /Templates/frontend/nextjs/Component.txt)
+    hooks:
+        shared:
+            CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+                - CREATE_MULTIPLE_FILES(use{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(use{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/useManyDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useCreateDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useUpdateDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(useDelete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/useDeleteDataAPICall.txt)
+    lib:
+        api:
+            CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
+                - CREATE_MULTIPLE_FILES(get{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/getDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(get{{tableNamePascalCasePlural}}.ts --use-related-table --template /Templates/frontend/nextjs/getManyDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(create{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/createDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(update{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/updateDataAPICall.txt)
+                - CREATE_MULTIPLE_FILES(delete{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/deleteDataAPICall.txt)
+    interfaces:
+        - CREATE_MULTIPLE_FILES(I{{tableNamePascalCaseSingular}}.ts --template /Templates/frontend/TypeScript-Interface.txt)
