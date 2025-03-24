@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import DataTable from './DataTable';
+import DataTable from '@components/DataTable.ts';
 import { useIndex{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useIndex{{tableNamePascalCaseSingular}}.ts';
 import { useCreate{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useCreate{{tableNamePascalCaseSingular}}.ts';
 import { useUpdate{{tableNamePascalCaseSingular}} } from '@/hooks/{{tableNameKebabCaseSingular}}/useUpdate{{tableNamePascalCaseSingular}}.ts';
