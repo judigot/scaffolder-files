@@ -1,8 +1,0 @@
-# This file defines routes settings for the application
-# See https://symfony.com/doc/current/routing.html
-
-# API routes
-api_{{tableNameSnakeCasePlural}}:
-    resource: App\Controller\{{tableNamePascalCaseSingular}}Controller
-    type: annotation
-    prefix: /api 
