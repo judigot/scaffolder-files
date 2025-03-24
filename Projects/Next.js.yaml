@@ -15,7 +15,7 @@ src:
             - CREATE_FILE(useUpdate.ts --template /Templates/frontend/nextjs/hooks/useUpdate.txt)
             - CREATE_FILE(useDelete.ts --template /Templates/frontend/nextjs/hooks/useDelete.txt)
         CREATE_DYNAMIC_FOLDERS({{tableNameKebabCaseSingular}}):
-            - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/{{table}}/useIndexEntity.txt)
+            - CREATE_MULTIPLE_FILES(useIndex{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useIndexEntity.txt)
             - CREATE_MULTIPLE_FILES(useFindById{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useFindByIdEntity.txt)
             - CREATE_MULTIPLE_FILES(useCreate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useCreateEntity.txt)
             - CREATE_MULTIPLE_FILES(useUpdate{{tableNamePascalCaseSingular}}.ts --use-related-table --template /Templates/frontend/nextjs/hooks/{{table}}/useUpdateEntity.txt)
