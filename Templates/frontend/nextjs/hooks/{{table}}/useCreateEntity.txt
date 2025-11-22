@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, UseMutationOptions } from '@tanstack/react-query';
-import { create{{tableNamePascalCaseSingular}} } from '@/lib/api/{{tableNameKebabCaseSingular}}/create{{tableNamePascalCaseSingular}}.ts';
+import { createResource } from '@/hooks/shared/useCreateResource.ts';
 import { I{{tableNamePascalCaseSingular}} } from '@/interfaces/I{{tableNamePascalCaseSingular}}.ts';
 
 export const useCreate{{tableNamePascalCaseSingular}} = (
@@ -11,7 +11,7 @@ export const useCreate{{tableNamePascalCaseSingular}} = (
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: create{{tableNamePascalCaseSingular}},
+    mutationFn: createResource,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['{{tableNameCamelCasePlural}}'] });
     },
