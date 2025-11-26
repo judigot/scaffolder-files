@@ -1,2 +1,0 @@
-Test file created at 2025-11-24T09:16:23.544Z
-Repository: https://github.com/judigot/scaffolder-files
