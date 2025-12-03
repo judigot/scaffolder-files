@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 return axiosInstance.post('/{{tableNameKebabCasePlural}}/batch-create', {
-=======
-return apiClient.post('/{{tableNameKebabCasePlural}}/batch-create', {
->>>>>>> bd5fbaab0c142b5786487be6c09f8bfe3fdac0bc
   dataArray: data,
   options: options
 }); 

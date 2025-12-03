@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 return axiosInstance.post('/{{tableNameKebabCasePlural}}/validate', {
-=======
-return apiClient.post('/{{tableNameKebabCasePlural}}/validate', {
->>>>>>> bd5fbaab0c142b5786487be6c09f8bfe3fdac0bc
   data,
   rules
 }); 
