@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 return axiosInstance.post('/{{tableNameKebabCasePlural}}/export', {
+=======
+return apiClient.post('/{{tableNameKebabCasePlural}}/export', {
+>>>>>>> bd5fbaab0c142b5786487be6c09f8bfe3fdac0bc
   format,
   filters,
   columns,

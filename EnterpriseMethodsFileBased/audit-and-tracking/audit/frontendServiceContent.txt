@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 return axiosInstance.post('/audit-logs', auditData); 
+=======
+return apiClient.post('/audit-logs', auditData); 
+>>>>>>> bd5fbaab0c142b5786487be6c09f8bfe3fdac0bc
