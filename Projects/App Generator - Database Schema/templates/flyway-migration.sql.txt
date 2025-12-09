@@ -1,3 +1,6 @@
+-- Flyway migration: V{{index(1)}}__Create_{{tableNameSnakeCasePlural}}_table.sql
+-- MyBatis + Flyway migration for {{tableName}}
+
 DROP TABLE IF EXISTS "{{tableName}}";
 
 CREATE TABLE "{{tableName}}" (
@@ -24,3 +27,4 @@ CREATE TABLE "{{tableName}}" (
 );
 
 [[USE_ROWS()]]
+
