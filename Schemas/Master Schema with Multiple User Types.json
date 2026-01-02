@@ -165,17 +165,24 @@
       {
         "column_name": "created_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       },
       {
         "column_name": "updated_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       }
     ],
-    "childTables": ["profile", "posts"],
+    "childTables": ["profile", "posts", "user_user_type"],
     "hasOne": ["profile"],
-    "hasMany": ["posts"]
+    "hasMany": ["posts", "user_user_type"],
+    "belongsToMany": ["user_type"],
+    "pivotRelationships": [
+      {
+        "relatedTable": "user_type",
+        "pivotTable": "user_user_type"
+      }
+    ]
   },
   {
     "tableName": "profile",
@@ -212,12 +219,12 @@
       {
         "column_name": "created_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       },
       {
         "column_name": "updated_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       }
     ],
     "foreignTables": ["user"],
@@ -263,16 +270,109 @@
       {
         "column_name": "created_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       },
       {
         "column_name": "updated_at",
         "data_type": "Date",
-        "is_nullable": "NO"
+        "is_nullable": "YES"
       }
     ],
     "foreignTables": ["user"],
     "foreignKeys": ["user_id"],
     "belongsTo": ["user"]
+  },
+  {
+    "tableName": "user_type",
+    "columnsInfo": [
+      {
+        "column_name": "user_type_id",
+        "data_type": "number",
+        "is_nullable": "NO",
+        "column_default": "AUTO_INCREMENT",
+        "primary_key": true
+      },
+      {
+        "column_name": "name",
+        "data_type": "string",
+        "is_nullable": "NO",
+        "unique": true
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "deleted_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      }
+    ],
+    "requiredColumns": ["user_type_id"],
+    "belongsToMany": ["user"],
+    "hasMany": ["user_user_type"],
+    "childTables": ["user_user_type"],
+    "pivotRelationships": [
+      {
+        "relatedTable": "user",
+        "pivotTable": "user_user_type"
+      }
+    ]
+  },
+  {
+    "tableName": "user_user_type",
+    "columnsInfo": [
+      {
+        "column_name": "user_user_type_id",
+        "data_type": "number",
+        "is_nullable": "NO",
+        "column_default": "AUTO_INCREMENT",
+        "primary_key": true
+      },
+      {
+        "column_name": "user_id",
+        "data_type": "number",
+        "is_nullable": "NO",
+        "foreign_key": {
+          "foreign_table_name": "user",
+          "foreign_column_name": "user_id"
+        }
+      },
+      {
+        "column_name": "user_type_id",
+        "data_type": "number",
+        "is_nullable": "NO",
+        "foreign_key": {
+          "foreign_table_name": "user_type",
+          "foreign_column_name": "user_type_id"
+        }
+      },
+      {
+        "column_name": "created_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "updated_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      },
+      {
+        "column_name": "deleted_at",
+        "data_type": "Date",
+        "is_nullable": "YES"
+      }
+    ],
+    "requiredColumns": ["user_user_type_id", "user_id", "user_type_id"],
+    "foreignTables": ["user", "user_type"],
+    "foreignKeys": ["user_id", "user_type_id"],
+    "isPivot": true,
+    "belongsTo": ["user", "user_type"]
   }
 ]
