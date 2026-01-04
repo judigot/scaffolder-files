@@ -1,6 +1,0 @@
-import type { I{{tableNamePascalCaseSingular}} } from '../types/{{tableNameCamelCase}}.types.js';
-
-export const {{tableNameCamelCasePlural}}: I{{tableNamePascalCaseSingular}}[] = [];
-
-let {{tableNameCamelCase}}IdCounter = 1;
-export const getNext{{tableNamePascalCaseSingular}}Id = (): number => {{tableNameCamelCase}}IdCounter++;

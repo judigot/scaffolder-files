@@ -1,6 +1,0 @@
-import { Router } from 'express';
-[[LOOP(tables) --template="import { {{tableNameCamelCase}}Router } from './{{tableNameCamelCase}}.route.js';" --separator="\n"]]
-
-export const router = Router();
-
-[[LOOP(tables) --template="router.use('/{{tableNameKebabCasePlural}}', {{tableNameCamelCase}}Router);" --separator="\n"]]

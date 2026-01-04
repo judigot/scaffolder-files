@@ -1,6 +1,0 @@
-import type { FastifyInstance } from 'fastify';
-[[ LOOP(tables) --template="import { register{{tableNamePascalCaseSingular}}Routes } from './{{tableNameCamelCase}}.route.js';" --separator="\n" ]]
-
-export const registerRoutes = (app: FastifyInstance): void => {
-[[ LOOP(tables) --template="  register{{tableNamePascalCaseSingular}}Routes(app);" --separator="\n" ]]
-};
