@@ -1,0 +1,58 @@
+src:
+  routes:
+    - CREATE_FILE(index.ts --template ./templates/routes-index.txt)
+    - FILE_LOOP({{tableNameCamelCase}}.route.ts --template ./templates/route.txt)
+  services:
+    - FILE_LOOP({{tableNameCamelCase}}.service.ts --template ./templates/service.txt)
+  types:
+    - FILE_LOOP({{tableNameCamelCase}}.types.ts --template ./templates/types.txt)
+  db:
+    - FILE_LOOP({{tableNameCamelCase}}.store.ts --template ./templates/store.txt)
+  index.ts: |
+    import { Hono } from 'hono';
+    import { logger } from 'hono/logger';
+    import { cors } from 'hono/cors';
+    import { routes } from './routes/index.js';
+
+    const app = new Hono();
+
+    app.use('*', logger());
+    app.use('*', cors());
+
+    app.get('/', (c) => c.json({ message: 'Hono API', docs: '/api' }));
+    app.route('/api', routes);
+
+    export default {
+      port: 3002,
+      fetch: app.fetch,
+    };
+package.json: |
+  {
+    "name": "hono-api",
+    "type": "module",
+    "scripts": {
+      "dev": "bun run --watch src/index.ts",
+      "start": "bun run src/index.ts"
+    },
+    "dependencies": {
+      "hono": "^4.6.0",
+      "zod": "^3.23.8"
+    },
+    "devDependencies": {
+      "@types/bun": "latest",
+      "typescript": "^5.6.0"
+    }
+  }
+tsconfig.json: |
+  {
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "ESNext",
+      "moduleResolution": "bundler",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "types": ["bun-types"]
+    },
+    "include": ["src"]
+  }

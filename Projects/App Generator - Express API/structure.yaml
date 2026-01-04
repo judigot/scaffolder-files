@@ -1,0 +1,15 @@
+src:
+  routes:
+    - CREATE_FILE(index.ts --template ./templates/routes-index.txt)
+    - FILE_LOOP({{tableNameCamelCase}}.route.ts --template ./templates/route.txt)
+  controllers:
+    - FILE_LOOP({{tableNameCamelCase}}.controller.ts --template ./templates/controller.txt)
+  services:
+    - FILE_LOOP({{tableNameCamelCase}}.service.ts --template ./templates/service.txt)
+  types:
+    - FILE_LOOP({{tableNameCamelCase}}.types.ts --template ./templates/types.txt)
+  db:
+    - FILE_LOOP({{tableNameCamelCase}}.store.ts --template ./templates/store.txt)
+  - CREATE_FILE(index.ts --template ./templates/index.txt)
+- CREATE_FILE(package.json --template ./templates/package.json.txt)
+- CREATE_FILE(tsconfig.json --template ./templates/tsconfig.json.txt)

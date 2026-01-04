@@ -1,0 +1,62 @@
+src:
+  routes:
+    - CREATE_FILE(index.ts --template ./templates/routes-index.txt)
+    - FILE_LOOP({{tableNameCamelCase}}.route.ts --template ./templates/route.txt)
+  services:
+    - FILE_LOOP({{tableNameCamelCase}}.service.ts --template ./templates/service.txt)
+  types:
+    - FILE_LOOP({{tableNameCamelCase}}.types.ts --template ./templates/types.txt)
+  db:
+    - FILE_LOOP({{tableNameCamelCase}}.store.ts --template ./templates/store.txt)
+  index.ts: |
+    import Fastify from 'fastify';
+    import { registerRoutes } from './routes/index.js';
+
+    const app = Fastify({ logger: true });
+
+    app.get('/', async () => ({ message: 'Fastify API', docs: '/api' }));
+    registerRoutes(app);
+
+    const start = async () => {
+      try {
+        await app.listen({ port: 3003 });
+      } catch (err) {
+        app.log.error(err);
+        process.exit(1);
+      }
+    };
+
+    start();
+package.json: |
+  {
+    "name": "fastify-api",
+    "type": "module",
+    "scripts": {
+      "dev": "tsx watch src/index.ts",
+      "start": "node dist/index.js",
+      "build": "tsc"
+    },
+    "dependencies": {
+      "fastify": "^5.0.0",
+      "zod": "^3.23.8"
+    },
+    "devDependencies": {
+      "@types/node": "^22.0.0",
+      "tsx": "^4.19.0",
+      "typescript": "^5.6.0"
+    }
+  }
+tsconfig.json: |
+  {
+    "compilerOptions": {
+      "target": "ES2022",
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "strict": true,
+      "esModuleInterop": true,
+      "outDir": "dist",
+      "rootDir": "src",
+      "skipLibCheck": true
+    },
+    "include": ["src"]
+  }

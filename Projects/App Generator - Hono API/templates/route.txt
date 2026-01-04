@@ -1,0 +1,35 @@
+import { Hono } from 'hono';
+import { {{tableNamePascalCaseSingular}}Service } from '../services/{{tableNameCamelCase}}.service.js';
+
+export const {{tableNameCamelCase}}Routes = new Hono();
+const service = new {{tableNamePascalCaseSingular}}Service();
+
+{{tableNameCamelCase}}Routes.get('/', async (c) => {
+  const items = await service.getAll();
+  return c.json(items);
+});
+
+{{tableNameCamelCase}}Routes.get('/:id', async (c) => {
+  const item = await service.getById(Number(c.req.param('id')));
+  if (!item) return c.json({ error: '{{tableNamePascalCaseSingular}} not found' }, 404);
+  return c.json(item);
+});
+
+{{tableNameCamelCase}}Routes.post('/', async (c) => {
+  const body = await c.req.json();
+  const item = await service.create(body);
+  return c.json(item, 201);
+});
+
+{{tableNameCamelCase}}Routes.put('/:id', async (c) => {
+  const body = await c.req.json();
+  const item = await service.update(Number(c.req.param('id')), body);
+  if (!item) return c.json({ error: '{{tableNamePascalCaseSingular}} not found' }, 404);
+  return c.json(item);
+});
+
+{{tableNameCamelCase}}Routes.delete('/:id', async (c) => {
+  const success = await service.delete(Number(c.req.param('id')));
+  if (!success) return c.json({ error: '{{tableNamePascalCaseSingular}} not found' }, 404);
+  return c.body(null, 204);
+});

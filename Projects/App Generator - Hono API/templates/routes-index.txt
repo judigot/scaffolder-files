@@ -1,0 +1,6 @@
+import { Hono } from 'hono';
+[[ LOOP(tables) --template="import { {{tableNameCamelCase}}Routes } from './{{tableNameCamelCase}}.route.js';" --separator="\n" ]]
+
+export const routes = new Hono();
+
+[[ LOOP(tables) --template="routes.route('/{{tableNameKebabCasePlural}}', {{tableNameCamelCase}}Routes);" --separator="\n" ]]
