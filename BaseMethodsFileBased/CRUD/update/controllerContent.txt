@@ -1,4 +1,0 @@
-
-        $updated = $this->service->{{methodName}}($id, $request->all());
-        return $updated ? response()->json(['message' => 'Resource updated']) : response()->json(['message' => 'Resource not found'], 404);
-      

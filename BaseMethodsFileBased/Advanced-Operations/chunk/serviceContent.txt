@@ -1,3 +1,0 @@
-
-        return $this->repository->chunk($size, $callback);
-      

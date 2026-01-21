@@ -1,1 +1,0 @@
-whereNotIn(Request $request)

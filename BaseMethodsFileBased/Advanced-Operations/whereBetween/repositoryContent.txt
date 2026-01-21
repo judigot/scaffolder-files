@@ -1,1 +1,0 @@
-return $this->model->whereBetween($column, $range)->get();

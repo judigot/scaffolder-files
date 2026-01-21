@@ -1,1 +1,0 @@
-each(callable $callback): bool

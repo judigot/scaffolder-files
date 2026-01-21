@@ -1,5 +1,0 @@
-
-      $count = $request->input('count', 1);
-      $items = $this->service->{{methodName}}($count);
-      return response()->json($items);
-      

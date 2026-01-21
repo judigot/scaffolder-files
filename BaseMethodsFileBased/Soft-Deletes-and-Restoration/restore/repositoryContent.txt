@@ -1,4 +1,0 @@
-
-      $record = $this->model->onlyTrashed()->find($id);
-      return $record ? $record->restore() : false;
-      

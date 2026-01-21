@@ -1,1 +1,0 @@
-{{methodName}}(array $attributes): ?Model
