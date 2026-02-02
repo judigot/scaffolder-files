@@ -40,7 +40,8 @@ export function RegisterForm({ onSuccess, onError }: RegisterFormProps) {
       });
       onSuccess?.();
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Registration failed');
+      const error =
+        err instanceof Error ? err : new Error('Registration failed');
       setError(error.message);
       onError?.(error);
     }

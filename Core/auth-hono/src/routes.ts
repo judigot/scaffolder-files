@@ -119,7 +119,9 @@ export function createAuthRoutes<
     // Verify password
     if (!user.passwordHash) {
       return c.json(
-        { error: 'Account uses OAuth login. Please sign in with your provider.' },
+        {
+          error: 'Account uses OAuth login. Please sign in with your provider.',
+        },
         401,
       );
     }

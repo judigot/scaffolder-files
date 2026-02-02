@@ -4,10 +4,7 @@
   "description": "Email/password + OAuth social login (Google, GitHub, etc.)",
   "version": "1.0.0",
   "preset": true,
-  "includes": [
-    "/Schemas/Auth/base",
-    "/Schemas/Auth/oauth"
-  ],
+  "includes": ["/Schemas/Auth/base", "/Schemas/Auth/oauth"],
   "features": {
     "emailPassword": true,
     "oauth": true,

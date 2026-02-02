@@ -55,7 +55,18 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": ["uuid", "varchar", "text", "integer", "bigint", "boolean", "timestamp", "date", "json", "jsonb"]
+          "enum": [
+            "uuid",
+            "varchar",
+            "text",
+            "integer",
+            "bigint",
+            "boolean",
+            "timestamp",
+            "date",
+            "json",
+            "jsonb"
+          ]
         },
         "length": { "type": "integer" },
         "primary": { "type": "boolean" },

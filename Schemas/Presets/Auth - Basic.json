@@ -4,9 +4,7 @@
   "description": "Basic authentication with email/password login only",
   "version": "1.0.0",
   "preset": true,
-  "includes": [
-    "/Schemas/Auth/base"
-  ],
+  "includes": ["/Schemas/Auth/base"],
   "features": {
     "emailPassword": true,
     "oauth": false,

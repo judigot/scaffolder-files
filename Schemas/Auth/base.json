@@ -72,10 +72,7 @@
           "nullable": false
         }
       },
-      "indexes": [
-        { "columns": ["userId"] },
-        { "columns": ["expiresAt"] }
-      ]
+      "indexes": [{ "columns": ["userId"] }, { "columns": ["expiresAt"] }]
     }
   }
 }
