@@ -29,9 +29,7 @@ export function createNodeSdk(
   source: NodeJS.ProcessEnv = process.env,
 ): NodeSDK {
   const serviceName =
-    options.serviceName ??
-    emptyToUndefined(source.OTEL_SERVICE_NAME) ??
-    'app';
+    options.serviceName ?? emptyToUndefined(source.OTEL_SERVICE_NAME) ?? 'app';
   const autoInstrument = source.OTEL_AUTO_INSTRUMENT !== 'false';
 
   return new NodeSDK({
