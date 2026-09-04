@@ -6,7 +6,9 @@ import { parsePort } from './env';
 import { NotFoundFilter } from './not-found.filter';
 
 async function bootstrap(): Promise<void> {
-  const app = await NestFactory.create(AppModule, { logger: ['error', 'warn'] });
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new NotFoundFilter());
   app.enableCors({

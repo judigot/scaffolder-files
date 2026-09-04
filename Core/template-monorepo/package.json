@@ -17,7 +17,7 @@
     "dev:primary": "turbo run dev --filter=@bigbang/api --filter=@bigbang/vite",
     "dev:vite": "turbo run dev --filter=@bigbang/vite",
     "dev:nextjs": "turbo run dev --filter=@bigbang/nextjs",
-    "dev:api": "bun --hot apps/api/src/main.ts",
+    "dev:api": "turbo run dev --filter=@bigbang/api",
     "build": "turbo run build",
     "build:vite": "turbo run build --filter=@bigbang/vite",
     "build:nextjs": "turbo run build --filter=@bigbang/nextjs",
