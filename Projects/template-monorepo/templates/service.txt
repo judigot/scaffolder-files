@@ -80,7 +80,10 @@ export class <@@>tableName.singular.pascalCase</@@>Service {
     return row;
   }
 
-  async create(data: typeof <@@>tableName.camelCase</@@>.$inferInsert) {
+  async create(
+    data: Omit<typeof <@@>tableName.camelCase</@@>.$inferInsert, '<@@>getPrimaryKeyCamelCase()</@@>'> &
+      Partial<Pick<typeof <@@>tableName.camelCase</@@>.$inferInsert, '<@@>getPrimaryKeyCamelCase()</@@>'>>,
+  ) {
 <@@IF@@ condition="primaryKeyDataType EQUALS 'number'">    const rows = await db.insert(<@@>tableName.camelCase</@@>).values(data).returning();</@@IF@@><@@IF@@ condition="primaryKeyDataType EQUALS 'uuid' OR primaryKeyDataType EQUALS 'string'">    const id = data.<@@>getPrimaryKeyCamelCase()</@@> ?? crypto.randomUUID();
     const rows = await db
       .insert(<@@>tableName.camelCase</@@>)
