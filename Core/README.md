@@ -77,6 +77,21 @@ Reusable API / app cores:
 - `/Core/playwright-e2e` — reusable Playwright package at `e2e/`
 - `/Core/vitest-test` — Vitest 4 CRUD test runner (`tests/`, coverage v8)
 
+Auth cores (Better Auth replaces Lucia):
+
+- `/Core/better-auth` — session factory, Drizzle adapter, React client, `account`/`verification` tables
+- `/Core/auth-services` — password helpers, OAuth (Arctic), session wrappers over Better Auth
+- `/Core/auth-hono` — Hono handler + session middleware (`api/auth/hono`)
+- `/Core/auth-nestjs` — NestJS `AuthModule` adapter (`@thallesp/nestjs-better-auth`)
+- `/Core/auth-react` — `AuthProvider` / login forms on `better-auth/react`
+
+```yaml
+$USE_CORE:
+  - /Core/auth-react
+  - /Core/auth-services
+  - /Core/better-auth
+```
+
 Compose the Nest API into the monorepo:
 
 ```yaml

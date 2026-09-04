@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+} from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import type { Queue } from 'bullmq';
 import { DEFAULT_QUEUE } from './queue.constants';
@@ -34,9 +40,7 @@ export class QueueController {
   }
 
   @Post('jobs')
-  async enqueue(
-    @Body() body: unknown,
-  ): Promise<{ id: string | undefined }> {
+  async enqueue(@Body() body: unknown): Promise<{ id: string | undefined }> {
     if (!isExampleJob(body)) {
       throw new BadRequestException('Invalid job payload');
     }
