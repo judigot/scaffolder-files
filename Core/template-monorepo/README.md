@@ -19,7 +19,6 @@ or learn from it, then feed proven generic improvements back. See
 │   │   └── vercel.json       # /api/* routing rewrite
 │   ├── vite/                 # Vite + React frontend (@bigbang/vite) — primary example
 │   └── nextjs/               # Next.js App Router frontend (@bigbang/nextjs)
-
 ├── packages/
 │   ├── api-client/           # Shared API contracts + typed fetch client
 │   └── typescript-config/    # Shared TypeScript configurations
