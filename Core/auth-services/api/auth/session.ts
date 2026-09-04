@@ -99,8 +99,7 @@ function toSession(value: unknown): Session | null {
   return {
     id: sessionId,
     userId: value.userId,
-    expiresAt:
-      value.expiresAt instanceof Date ? value.expiresAt : new Date(),
+    expiresAt: value.expiresAt instanceof Date ? value.expiresAt : new Date(),
   };
 }
 

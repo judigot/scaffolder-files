@@ -19,6 +19,7 @@ or learn from it, then feed proven generic improvements back. See
 │   │   └── vercel.json       # /api/* routing rewrite
 │   ├── vite/                 # Vite + React frontend (@bigbang/vite) — primary example
 │   └── nextjs/               # Next.js App Router frontend (@bigbang/nextjs)
+
 ├── packages/
 │   ├── api-client/           # Shared API contracts + typed fetch client
 │   └── typescript-config/    # Shared TypeScript configurations
@@ -29,6 +30,10 @@ or learn from it, then feed proven generic improvements back. See
 ├── turbo.json                # Turborepo task graph
 └── bun.lock                  # The only lockfile
 ```
+
+Standalone Next.js 16 BFF stock is `/Core/nextjs` (repo-root `app/`). This
+`apps/nextjs` package stays the monorepo frontend that consumes `@bigbang/api`.
+Do not `$USE_CORE /Core/nextjs` into this skeleton — the App Router trees collide.
 
 ## Requirements
 

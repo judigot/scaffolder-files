@@ -67,6 +67,7 @@ Reusable API / app cores:
 
 - `/Core/hono-api` — repo-root Hono overlay (`hono-react`)
 - `/Core/nestjs-api` — Nest.js HTTP package at `apps/api` (`@bigbang/api`)
+- `/Core/nextjs` — Next.js 16 App Router BFF at repo root (`App Generator - Next.js`)
 - `/Core/laravel` — Laravel application base
 - `/Core/template-monorepo` — Bun Turborepo skeleton (Vite + Next.js + packages; no API)
 
@@ -76,6 +77,14 @@ Compose the Nest API into the monorepo:
 $USE_CORE:
   - /Core/template-monorepo
   - /Core/nestjs-api
+```
+
+Standalone Next.js BFF (do not compose with `/Core/template-monorepo`; `app/` would collide):
+
+```yaml
+$USE_CORE:
+  - /Core/nextjs
+  - /Core/drizzle-data
 ```
 
 Use:
