@@ -30,9 +30,9 @@ lib/auth.ts        Auth hook (compose Better Auth when that core exists)
 
 ```yaml
 $USE_CORE:
-  - /Core/nextjs
   - /Core/drizzle-data
   - /Core/better-auth
+  - /Core/nextjs
 ```
 
 Put `/Core/drizzle-data` after this core so Drizzle scripts and `api/db`
