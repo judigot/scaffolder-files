@@ -15,8 +15,10 @@ async function bootstrap(): Promise<void> {
   });
 
   const port = parsePort();
-  await app.listen(port);
-  console.error(`API listening on http://localhost:${String(port)}`);
+  // Bind IPv4 explicitly so GitHub Actions `127.0.0.1` / `localhost` health
+  // checks reach the server. A host-less listen() can end up on `::` only.
+  await app.listen(port, '0.0.0.0');
+  console.error(`API listening on http://127.0.0.1:${String(port)}`);
 }
 
 void bootstrap();
