@@ -35,6 +35,7 @@ $USE_CORE:
   - /Core/nextjs
 ```
 
-Put `/Core/drizzle-data` after this core so Drizzle scripts and `api/db`
-merge on top of the Next.js app. Do not also `$USE_CORE` `/Core/hono-api`
-or `/Core/bun-base`; those overlays are Vite/Hono at the repo root.
+Put this core **last** so App Router files, the auth catch-all, and the
+Next-typed Better Auth factory win the merge. Do not also `$USE_CORE`
+`/Core/hono-api` or `/Core/bun-base`; those overlays are Vite/Hono at the
+repo root.
