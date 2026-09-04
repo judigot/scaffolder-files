@@ -1,19 +1,23 @@
 import type { JSX, ReactNode } from 'react';
-import { useAppForm } from './use-app-form';
 
-type AppFormInstance = ReturnType<typeof useAppForm>;
+interface IFormShell {
+  AppForm: (props: { children?: ReactNode }) => JSX.Element;
+  handleSubmit: () => unknown;
+}
 
 export function Form({
   form,
   children,
   className,
 }: {
-  form: AppFormInstance;
+  form: IFormShell;
   children: ReactNode;
   className?: string;
 }): JSX.Element {
+  const AppForm = form.AppForm;
+
   return (
-    <form.AppForm>
+    <AppForm>
       <form
         className={className ?? 'space-y-4'}
         onSubmit={(event) => {
@@ -24,6 +28,6 @@ export function Form({
       >
         {children}
       </form>
-    </form.AppForm>
+    </AppForm>
   );
 }

@@ -16,6 +16,7 @@ $USE_CORE:
   - /Core/tanstack-form
   - /Core/auth-react
   - /Core/auth-services
+  - /Core/better-auth
   - /Core/ci-api-testing
 
 # API routes - one file per table
