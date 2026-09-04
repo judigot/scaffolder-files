@@ -8,7 +8,7 @@ Generated Next.js 16 App Router backend-for-frontend with Drizzle ORM.
 - **App**: Next.js 16 App Router (Vercel)
 - **Database**: PostgreSQL with Drizzle ORM
 - **Validation**: Zod
-- **Auth**: `lib/auth.ts` hook (compose Better Auth when that core exists)
+- **Auth**: Better Auth at `/api/auth/*` (`getAuthSession` in `lib/auth.ts`)
 
 ## Getting Started
 
@@ -27,6 +27,7 @@ bun run dev
 
 - `GET /api/health` - Health check
 - `GET /api/hello` - Hello payload
+- `GET|POST /api/auth/*` - Better Auth handler
 
 <@@LOOP@@ data="tables" separator="\n">### <@@>tableName.singular.pascalCase</@@>
 - `GET /api/<@@>tableName.kebabCase</@@>` - List all <@@>tableName</@@>

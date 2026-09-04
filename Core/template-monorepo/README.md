@@ -30,10 +30,6 @@ or learn from it, then feed proven generic improvements back. See
 └── bun.lock                  # The only lockfile
 ```
 
-Standalone Next.js 16 BFF stock is `/Core/nextjs` (repo-root `app/`). This
-`apps/nextjs` package stays the monorepo frontend that consumes `@bigbang/api`.
-Do not `$USE_CORE /Core/nextjs` into this skeleton — the App Router trees collide.
-
 ## Requirements
 
 - **Bun** `1.3.14` (pinned in `packageManager`) — the sole package manager.

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { and, eq } from 'drizzle-orm';
+import { eq<@@IF@@ condition="hasCompositePrimaryKey() EQUALS 'true'">, and</@@IF@@> } from 'drizzle-orm';
 import { db } from '../db';
 import { <@@>tableName.camelCase</@@> } from '../db/schema';
 
@@ -80,9 +80,12 @@ export class <@@>tableName.singular.pascalCase</@@>Service {
     return row;
   }
 
-  async create(data: Omit<typeof <@@>tableName.camelCase</@@>.$inferInsert, '<@@>getPrimaryKeyCamelCase()</@@>'> & Partial<Pick<typeof <@@>tableName.camelCase</@@>.$inferInsert, '<@@>getPrimaryKeyCamelCase()</@@>'>>) {
+  async create(data: typeof <@@>tableName.camelCase</@@>.$inferInsert) {
 <@@IF@@ condition="primaryKeyDataType EQUALS 'number'">    const rows = await db.insert(<@@>tableName.camelCase</@@>).values(data).returning();</@@IF@@><@@IF@@ condition="primaryKeyDataType EQUALS 'uuid' OR primaryKeyDataType EQUALS 'string'">    const id = data.<@@>getPrimaryKeyCamelCase()</@@> ?? crypto.randomUUID();
-    const rows = await db.insert(<@@>tableName.camelCase</@@>).values({ ...data, <@@>getPrimaryKeyCamelCase()</@@>: id }).returning();</@@IF@@>
+    const rows = await db
+      .insert(<@@>tableName.camelCase</@@>)
+      .values({ ...data, <@@>getPrimaryKeyCamelCase()</@@>: id })
+      .returning();</@@IF@@>
     const row = rows[0];
     if (row === undefined) {
       throw new NotFoundException();

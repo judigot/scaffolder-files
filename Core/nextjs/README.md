@@ -23,7 +23,7 @@ lib/auth.ts        Auth hook (compose Better Auth when that core exists)
 - Hello: `GET /api/hello`
 - Unknown `/api/*` routes: JSON `{ "error": "Not Found" }` with HTTP 404
 - Database: compose `/Core/drizzle-data` (Drizzle + `postgres` at `api/db`)
-- Auth: `getAuthSession()` in `lib/auth.ts` until `/Core/better-auth` exists
+- Auth: compose `/Core/better-auth`; `lib/auth.ts` remains the session hook
 
 ## Composition
 
@@ -31,6 +31,7 @@ lib/auth.ts        Auth hook (compose Better Auth when that core exists)
 $USE_CORE:
   - /Core/nextjs
   - /Core/drizzle-data
+  - /Core/better-auth
 ```
 
 Put `/Core/drizzle-data` after this core so Drizzle scripts and `api/db`
