@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import { useAppForm } from './use-app-form';
 
 type AppFormInstance = ReturnType<typeof useAppForm>;
@@ -11,7 +11,7 @@ export function Form({
   form: AppFormInstance;
   children: ReactNode;
   className?: string;
-}): React.JSX.Element {
+}): JSX.Element {
   return (
     <form.AppForm>
       <form

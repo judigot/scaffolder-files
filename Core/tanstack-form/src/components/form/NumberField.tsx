@@ -1,14 +1,10 @@
+import type { JSX } from 'react';
+import { fieldErrorMessage } from './field-errors';
 import { useFieldContext } from './form-context';
 
-function errorMessage(errors: ReadonlyArray<unknown>): string {
-  return errors
-    .map((error) => (typeof error === 'string' ? error : String(error)))
-    .join(', ');
-}
-
-export function NumberField({ label }: { label: string }): React.JSX.Element {
+export function NumberField({ label }: { label: string }): JSX.Element {
   const field = useFieldContext<number>();
-  const errors = errorMessage(field.state.meta.errors);
+  const errors = fieldErrorMessage(field.state.meta.errors);
 
   return (
     <label className="block space-y-1">

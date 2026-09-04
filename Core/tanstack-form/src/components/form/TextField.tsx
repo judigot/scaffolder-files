@@ -1,10 +1,6 @@
+import type { JSX } from 'react';
+import { fieldErrorMessage } from './field-errors';
 import { useFieldContext } from './form-context';
-
-function errorMessage(errors: ReadonlyArray<unknown>): string {
-  return errors
-    .map((error) => (typeof error === 'string' ? error : String(error)))
-    .join(', ');
-}
 
 export function TextField({
   label,
@@ -12,9 +8,9 @@ export function TextField({
 }: {
   label: string;
   type?: 'text' | 'email' | 'password' | 'url' | 'datetime-local';
-}): React.JSX.Element {
+}): JSX.Element {
   const field = useFieldContext<string>();
-  const errors = errorMessage(field.state.meta.errors);
+  const errors = fieldErrorMessage(field.state.meta.errors);
 
   return (
     <label className="block space-y-1">

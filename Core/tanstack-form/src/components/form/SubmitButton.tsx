@@ -1,6 +1,7 @@
+import type { JSX } from 'react';
 import { useFormContext } from './form-context';
 
-export function SubmitButton({ label }: { label: string }): React.JSX.Element {
+export function SubmitButton({ label }: { label: string }): JSX.Element {
   const form = useFormContext();
 
   return (
